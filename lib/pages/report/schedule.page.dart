@@ -67,8 +67,8 @@ class DessertDataSource extends DataTableSource {
     _desserts.clear();
     for (var value in data) {
       _desserts.add(new Dessert(value) );
-      notifyListeners();
     }
+    notifyListeners();
   }
 
 
@@ -96,6 +96,8 @@ class DessertDataSource extends DataTableSource {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    new Text('Schedule Information', style: new TextStyle(fontWeight: FontWeight.bold),),
+                    new Padding(padding: const EdgeInsets.only(top: 10.0)),
                     new Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children:<Widget>[
@@ -213,6 +215,14 @@ class _Schedulebility extends State<SchedulePage> {
     blockLoader(context);
     final AppBloc appBloc = AppBlocProvider.of(context);
     try {
+      print('data sent');
+      print({
+        "dateFrom" : new DateFormat('y-MM-dd').format(searchModel.dateFrom),
+        "dateTo" : new DateFormat('y-MM-dd').format(searchModel.dateTo),
+        "trainSetId" : searchModel.trainSetId,
+        "status" : searchModel.status,
+        "action" : searchModel.action,
+      });
       Response response = await appBloc.app.api.post(
         Api.routes[ApiRoute.schedule],
         data: {
@@ -345,12 +355,12 @@ List<Widget> _buildTaskList(Dessert dessert) {
     );
 
     for (var value in dessert.taskList) {
-      taskList.add(new Divider());
+      taskList.add(new Divider(color: Colors.grey));
       taskList.add(new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:<Widget>[
           new Text(value['taskName']),
-          new Text(value['status'], style: new  TextStyle(color: value['status'].toString() == 'Undone' ? Colors.red : Colors.green),),
+          new Text(value['status'], style: new  TextStyle(color: value['status'].toString() == 'Undone' ? Colors.red : value['status'].toString() == 'Skip' ? Colors.orange : Colors.green),),
         ],
       ));
 
@@ -386,6 +396,23 @@ List<Widget> _buildTaskList(Dessert dessert) {
 
       }
 
+      List<dynamic> people = value['people'];
+
+      if (people.length > 0){
+        taskList.add(new Padding(padding: const EdgeInsets.only(top: 10.0)),);
+        taskList.add(new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children:<Widget>[
+            new Text("Participant"),
+          ],
+        ));
+        int counter = 1;
+        for (var vt in people) {
+          taskList.add(new Text('${counter}. ${vt.toString()}'));
+          counter++;
+        }
+      }
+
       List<dynamic> tools = value['tools'];
 
       if (tools.length > 0){
@@ -398,12 +425,7 @@ List<Widget> _buildTaskList(Dessert dessert) {
         ));
         int counter = 1;
         for (var vt in tools) {
-          taskList.add(new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children:<Widget>[
-              new Text('${counter}. ${vt.toString()}'),
-            ],
-          ));
+          taskList.add(new Text('${counter}. ${vt.toString()}'));
           counter++;
         }
       }
@@ -413,7 +435,7 @@ List<Widget> _buildTaskList(Dessert dessert) {
       taskList.add(
         new Padding(padding: const EdgeInsets.only(top: 10.0)),
       );
-      taskList.add(new Divider());
+      taskList.add(new Divider(color: Colors.grey,));
       taskList.add(
         new Text('Progress Information', style: new TextStyle(fontWeight: FontWeight.bold),),
       );
@@ -451,12 +473,15 @@ List<Widget> _buildTaskList(Dessert dessert) {
       if(dessert.progressInformation['notes'].runtimeType.toString() != 'Null' && dessert.progressInformation['notes'].toString() != ''){
         taskList.add(new Row(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children:<Widget>[
             new Container(
               child: new Text('Note'),
               width: 120.0,
             ),
-            new Text(dessert.progressInformation['notes']),
+            new Expanded(
+              child: new Text(dessert.progressInformation['notes']),
+            )
           ],
         ));
       }

@@ -37,7 +37,7 @@ class WeightEntryDialogState extends State<WeightEntryDialog> {
   ];
 
   List<dynamic> _listAction = [
-    { 'id': 'running', 'name':'Running' },
+    { 'id': 'normal', 'name':'Normal' },
     { 'id': 'doNothing', 'name':'Do Nothing' },
     { 'id': 'outstanding', 'name':'Outstanding' },
   ];

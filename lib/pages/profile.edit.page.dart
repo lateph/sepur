@@ -125,11 +125,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
           if (_changePhoneNumberForm.key.currentState.validate()) {
             try {
               await _changePhoneNumberForm.submit(context);
-              _scaffoldKey.currentState.showSnackBar(
-                  new SnackBar(content: new Text('Profile Saved')));
+//              Scaffold.of(context).showSnackBar(
+//                  new SnackBar(content: new Text('Profile Saved')));
+
+              Navigator.pop(context, true);
             }
             catch(e){
-
+              print(e);
             }
           }
         },

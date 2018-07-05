@@ -21,9 +21,9 @@ class Dessert {
   Dessert (value) {
     this.trainSetId = value['trainSetId'];
     this.trainCarId = value['trainCarId'];
-    this.trainSetNumber = value['trainSetNumber'];
-    this.trainSetName = value['trainSetName'];
-    this.trainCarNumber = value['trainCarNumber'];
+    this.trainSetNumber = value['trainSetNumber'].toString();
+    this.trainSetName = value['trainSetName'].toString();
+    this.trainCarNumber = value['trainCarNumber'].toString();
     this.trainCarName = value['trainCarName'];
 
     this.totalMinute = value['totalMinute'].toString();
@@ -81,8 +81,8 @@ class DessertDataSource extends DataTableSource {
     _desserts.clear();
     for (var value in data) {
       _desserts.add(new Dessert(value) );
-      notifyListeners();
     }
+    notifyListeners();
   }
 
 
@@ -202,7 +202,7 @@ class _StockComponent extends State<StockComponentPage> {
   dynamic listTrainSet;
   List<dynamic> list = [];
   final DessertDataSource _dessertsDataSource = new DessertDataSource();
-  SearchModel searchModel = new SearchModel( new DateTime.utc(new DateTime.now().year, 1, 1), new DateTime.now(), ''  , 'trainCar');
+  SearchModel searchModel = new SearchModel( new DateTime.now(), new DateTime.now(), ''  , 'trainCar');
 
   void _sort<T>(Comparable<T> getField(Dessert d), int columnIndex, bool ascending) {
     _dessertsDataSource._sort<T>(getField, ascending);
@@ -306,7 +306,7 @@ class _StockComponent extends State<StockComponentPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: const Text('Stock Component'),
+          title: const Text('Component Stock'),
           actions: <Widget>[
             // action button
             new IconButton(

@@ -86,7 +86,7 @@ class WeightEntryDialogState extends State<WeightEntryDialog> {
               ),
               new InputDecorator(
                 decoration: const InputDecoration(
-                  labelText: 'Train Set',
+                  labelText: 'Location',
                   hintText: 'Choose Train Set',
                 ),
                 isEmpty: _trainSetId == null,

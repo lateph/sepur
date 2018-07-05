@@ -20,9 +20,9 @@ class Dessert {
   Dessert (value) {
     this.trainSetId = value['trainSetId'];
     this.trainCarId = value['trainCarId'];
-    this.trainSetNumber = value['trainSetNumber'];
-    this.trainSetName = value['trainSetName'];
-    this.trainCarNumber = value['trainCarNumber'];
+    this.trainSetNumber = value['trainSetNumber'].toString();
+    this.trainSetName = value['trainSetName'].toString();
+    this.trainCarNumber = value['trainCarNumber'].toString();
     this.trainCarName = value['trainCarName'];
 
     this.totalMinute = value['totalMinute'].toString();
@@ -80,8 +80,8 @@ class DessertDataSource extends DataTableSource {
     _desserts.clear();
     for (var value in data) {
       _desserts.add(new Dessert(value) );
-      notifyListeners();
     }
+    notifyListeners();
   }
 
 
@@ -223,6 +223,13 @@ class _TrainAvailability extends State<TrainAvailabilityPage> {
     blockLoader(context);
     final AppBloc appBloc = AppBlocProvider.of(context);
     try {
+      print('data sent');
+      print({
+        "dateFrom" : new DateFormat('y-MM-dd').format(searchModel.dateFrom),
+        "dateTo" : new DateFormat('y-MM-dd').format(searchModel.dateTo),
+        "trainSetId" : searchModel.trainSetId,
+        "groupBy" : searchModel.groupBy
+      });
       Response response = await appBloc.app.api.post(
         Api.routes[ApiRoute.trainAvailbility],
         data: {

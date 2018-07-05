@@ -39,6 +39,7 @@ class EditProfileForm extends BaseForm {
             }
         ),
       );
+      print('123test');
       print(response.data);
 
       appBloc.auth.memberState.attributes['name'] = data['name'].toString();

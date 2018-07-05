@@ -67,6 +67,7 @@ class _EditPasswordState extends State<EditPasswordPage> {
               children: <Widget>[
                 TextFormField(
                     initialValue:  _changePhoneNumberForm.fields['oldPassword'],
+                    obscureText: true,
                     decoration: InputDecoration(
                       isDense: true,
                       labelText: 'Old Password',
@@ -80,6 +81,7 @@ class _EditPasswordState extends State<EditPasswordPage> {
                 ),
                 TextFormField(
                   initialValue:  _changePhoneNumberForm.fields['newPassword'],
+                  obscureText: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     isDense: true,
@@ -93,6 +95,7 @@ class _EditPasswordState extends State<EditPasswordPage> {
                 ),
                 TextFormField(
                   initialValue:  _changePhoneNumberForm.fields['confirmNewPassword'],
+                  obscureText: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     isDense: true,
@@ -134,7 +137,8 @@ class _EditPasswordState extends State<EditPasswordPage> {
           if (_changePhoneNumberForm.key.currentState.validate()) {
             try {
               await _changePhoneNumberForm.submit(context);
-              _scaffoldKey.currentState.showSnackBar(new SnackBar(content: new Text('Password Saved')));
+//              _scaffoldKey.currentState.showSnackBar(new SnackBar(content: new Text('Password Saved')));
+              Navigator.pop(context, true);
             }
             catch(e){
             }

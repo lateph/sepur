@@ -59,8 +59,8 @@ class DessertDataSource extends DataTableSource {
     _desserts.clear();
     for (var value in data) {
       _desserts.add(new Dessert(value) );
-      notifyListeners();
     }
+    notifyListeners();
   }
 
 
@@ -184,6 +184,8 @@ class _TrainReliability extends State<TrainReliabilityPage> {
         "trainSetId" : searchModel.trainSetId,
         "groupBy" : searchModel.groupBy
       };
+      print('123');
+      print(data);
       Response response = await appBloc.app.api.post(
         Api.routes[ApiRoute.trainReliability],
         data: data,
@@ -194,8 +196,8 @@ class _TrainReliability extends State<TrainReliabilityPage> {
           },
         ),
       );
-      _dessertsDataSource.loadJSON(response.data['data']);
       print(response.data['data']);
+      _dessertsDataSource.loadJSON(response.data['data']);
     } on DioError catch (e) {
       // on 400 error
       if (e.response != null) {

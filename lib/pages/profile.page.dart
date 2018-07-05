@@ -22,10 +22,18 @@ class _ProfilePageState extends State<ProfilePage> {
       await appBloc.auth.logout(context);
     }
     if(choice == 'EditProfile'){
-      Navigator.of(context).pushNamed(EditProfilePage.routeName);
+      final result = await Navigator.of(context).pushNamed(EditProfilePage.routeName);
+      if(result == true) {
+        Scaffold.of(context).showSnackBar(
+            new SnackBar(content: new Text('Profile Saved'), backgroundColor: Colors.red[700],));
+      }
     }
     if(choice == 'ChangePassword'){
-      Navigator.of(context).pushNamed(EditPasswordPage.routeName);
+      final result = await Navigator.of(context).pushNamed(EditPasswordPage.routeName);
+      if(result == true) {
+        Scaffold.of(context).showSnackBar(
+            new SnackBar(content: new Text('Password Changed'), backgroundColor: Colors.red[700],));
+      }
     }
   }
 
@@ -52,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     value: 'ChangePassword',
                     child: const ListTile(
                         leading: const Icon(Icons.lock),
-                        title: const Text('ChangePassword')
+                        title: const Text('Change Password')
                     )
                 ),
                 const PopupMenuDivider(), // ignore: list_element_type_not_assignable, https://github.com/flutter/flutter/issues/5771

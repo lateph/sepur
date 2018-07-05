@@ -65,8 +65,8 @@ class DessertDataSource extends DataTableSource {
     _desserts.clear();
     for (var value in data) {
       _desserts.add(new Dessert(value) );
-      notifyListeners();
     }
+    notifyListeners();
   }
 
 
@@ -103,8 +103,8 @@ class DessertDataSource extends DataTableSource {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children:<Widget>[
-                            new Text('${dessert.plantName} - ${dessert.locationName}', style: new TextStyle(color: Colors.grey)),
-                            new Text(dessert.trainSetName, style: new TextStyle(color: Colors.grey)),
+                            new Text('${dessert.plantName.toString()} - ${dessert.locationName.toString()}', style: new TextStyle(color: Colors.grey)),
+                            new Text(dessert.trainSetName.toString(), style: new TextStyle(color: Colors.grey)),
                           ],
                         ),
                         new Padding(padding: const EdgeInsets.only(top: 10.0)),
@@ -117,19 +117,19 @@ class DessertDataSource extends DataTableSource {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children:<Widget>[
-                            new Text("${dessert.statusCreated} Created"),
+                            new Text("${dessert.statusCreated.toString()} Created"),
                           ],
                         ),
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children:<Widget>[
-                            new Text("${dessert.statusOnProgress} On Progress"),
+                            new Text("${dessert.statusOnProgress.toString()} On Progress"),
                           ],
                         ),
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children:<Widget>[
-                            new Text("${dessert.statusDone} Done"),
+                            new Text("${dessert.statusDone.toString()} Done"),
                           ],
                         ),
                       ],
@@ -234,6 +234,7 @@ class _Schedulebility extends State<ScheduleFirstPage> {
         ),
       );
       _dessertsDataSource.loadJSON(response.data['data']);
+      print('123');
       print(response.data['data']);
     } on DioError catch (e) {
       // on 400 error

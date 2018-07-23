@@ -140,6 +140,8 @@ class _ExpansionTileState extends State<ExpansionTile2> with SingleTickerProvide
       ),
       child: new Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           IconTheme.merge(
             data: new IconThemeData(color: _iconColor.evaluate(_easeInAnimation)),

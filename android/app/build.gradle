@@ -30,8 +30,8 @@ android {
         applicationId "com.msa_inka.android"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 9
-        versionName "1.9"
+        versionCode 11
+        versionName "2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

@@ -336,7 +336,9 @@ class _StockComponent extends State<StockComponentPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             new Text("(${obj['component_code']}) - ${obj['component_name']} [${obj['measurement_technical']}] "),
-            new Text("${obj['freeStock']} Free, ${obj['usedStock']} Used, ${obj['replacedStock']} Replaced" , style: new TextStyle(color: Colors.grey),)
+            new Text("${obj['freeStock']} Available" , style: new TextStyle(color: Colors.grey),),
+            new Text("${obj['normalConsumption']} Normal Consumption" , style: new TextStyle(color: Colors.grey),),
+            new Text("${obj['consumptionPlan']} Consumption Plan" , style: new TextStyle(color: Colors.grey),)
           ],
         ),
         children: childs

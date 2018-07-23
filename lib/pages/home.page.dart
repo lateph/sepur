@@ -16,11 +16,12 @@ class _HomePageState extends State<HomePage> {
   AssetImage background = AssetImage('assets/images/home.jpg');
   final FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
   bool launch = false;
+  int total = 0;
 
   void simpanMessage (AppBloc appBloc, message) {
     print('type data');
     print(appBloc.auth.deviceState.attributes['notif'].runtimeType.toString());
-    if (appBloc.auth.deviceState.attributes['notif'].runtimeType.toString() == 'List<Map<String, String>>' || appBloc.auth.deviceState.attributes['notif'].runtimeType.toString() == 'List<dynamic>' || appBloc.auth.deviceState.attributes['notif'].runtimeType.toString() == 'List<Map<String, dynamic>>'){
+    if (appBloc.auth.deviceState.notif.runtimeType.toString() != 'Null'){
       appBloc.auth.deviceState.attributes['notif'].insert(0,
         {
           'title': message['title'],
@@ -57,11 +58,12 @@ class _HomePageState extends State<HomePage> {
     _firebaseMessaging.requestNotificationPermissions();
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) {
+        total = total + 1;
 //        Scaffold.of(context).showSnackBar(new SnackBar(
-//          content: new Text("New Message"),
+//          content: new Text('new message ${total}'),
 //        ));
+        print('new notif bro');
         simpanMessage(appBloc, message);
-        print('');
 //        _showItemDialog(message);
       },
       onLaunch: (Map<String, dynamic> message) {
